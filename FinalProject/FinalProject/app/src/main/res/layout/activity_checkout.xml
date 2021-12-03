@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Checkout"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Checkout"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rectangle_outline"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:id="@+id/startPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pickup Spot: 265, 3d Street"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@drawable/ic_location"/>
+
+        <TextView
+            android:id="@+id/destination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Destination: 10434, Main Street"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@drawable/ic_location"/>
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Duration Estimate: 35 minutes"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@drawable/ic_time"
+            android:paddingBottom="10dp"/>
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Total Price"
+        android:layout_marginRight="20dp"
+        android:textSize="15sp"
+        android:layout_gravity="end"
+        android:textAlignment="textEnd"
+        android:editable="false"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subtotal: "
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/subTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10.00$"
+            android:layout_marginRight="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TPS: "
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.50$"
+            android:layout_marginRight="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TVQ: "
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.00$"
+            android:layout_marginRight="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: "
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11.50$"
+            android:layout_marginRight="20dp"/>
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Card Information"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:layout_gravity="end"
+        android:textAlignment="textEnd"
+        android:editable="false"/>
+
+    <EditText
+        android:id="@+id/cardNum"
+        android:padding="5dp"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Card Number"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="13sp"
+        android:layout_gravity="end"
+        android:textAlignment="textEnd"
+        android:background="@drawable/rectangle_outline"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/expDate"
+            android:padding="5dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Exp Date"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="10dp"
+            android:textSize="13sp"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd"
+            android:background="@drawable/rectangle_outline"/>
+
+        <EditText
+            android:id="@+id/securityCode"
+            android:padding="5dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Security Code"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:textSize="13sp"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd"
+            android:background="@drawable/rectangle_outline"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/confirmB"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#ff5c6c"
+        android:textColor="@color/white"
+        android:text="Confirm"
+        android:layout_marginTop="24dp"/>
+
+    <Button
+        android:id="@+id/cancelB"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#ff5c6c"
+        android:textColor="@color/white"
+        android:text="Cancel"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>

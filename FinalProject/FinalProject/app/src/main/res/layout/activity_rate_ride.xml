@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RateRide"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Thanks for riding with L&amp;D Rides!"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rate Your Ride"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+    </Space>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Insert Any Comments:"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:inputType="text|textMultiLine"
+        android:background="@drawable/rectangle_outline"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginLeft="80dp"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+    </Space>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/minusB"
+            android:src="@drawable/minus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical">
+        </de.hdodenhof.circleimageview.CircleImageView>
+
+        <Space
+            android:layout_width="30dp"
+            android:layout_height="match_parent">
+        </Space>
+
+        <ImageView
+            android:id="@+id/heart1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/dark_heart"
+            android:layout_gravity="center_vertical"/>
+
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="match_parent">
+        </Space>
+
+        <ImageView
+            android:id="@+id/heart2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/dark_heart"
+            android:layout_gravity="center_vertical"/>
+
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="match_parent">
+        </Space>
+
+        <ImageView
+            android:id="@+id/heart3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/dark_heart"
+            android:layout_gravity="center_vertical"/>
+
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="match_parent">
+        </Space>
+
+        <ImageView
+            android:id="@+id/heart4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/light_heart"
+            android:layout_gravity="center_vertical"/>
+
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="match_parent">
+        </Space>
+
+        <ImageView
+            android:id="@+id/heart5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/light_heart"
+            android:layout_gravity="center_vertical"/>
+
+        <Space
+            android:layout_width="30dp"
+            android:layout_height="match_parent">
+        </Space>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/plusB"
+            android:src="@drawable/plus"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center_vertical">
+        </de.hdodenhof.circleimageview.CircleImageView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submitB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#ff5c6c"
+        android:textColor="@color/white"
+        android:text="Submit"
+        android:layout_marginTop="40dp"/>
+</LinearLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_history"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"/>
+
+        <View
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="330dp"
+        android:layout_height="80dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/address1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vanier College"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"/>
+
+        <TextView
+            android:id="@+id/addressDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="821, av. Sainte-Croix, Montreal, H4X H3E"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"/>
+
+        <View
+            android:layout_marginTop="11dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+    </LinearLayout>
+</LinearLayout>
