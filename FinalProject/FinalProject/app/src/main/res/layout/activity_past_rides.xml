@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PastRides"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/rideParentLayout">
 
     <TextView
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
         android:layout_marginTop="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rideRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="400dp" />
 
