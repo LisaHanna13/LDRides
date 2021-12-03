@@ -23,9 +23,19 @@
         android:textColor="@color/black"
         android:layout_marginTop="10dp"/>
 
+    <Button
+        android:id="@+id/viewDriverB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#ff5c6c"
+        android:textColor="@color/white"
+        android:text="View Driver"
+        android:layout_marginTop="20dp"/>
+
     <Space
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="30dp">
     </Space>
 
     <TextView
@@ -37,7 +47,7 @@
         android:textStyle="bold"/>
 
     <EditText
-        android:id="@+id/edit_text"
+        android:id="@+id/comments"
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:inputType="text|textMultiLine"
@@ -58,7 +68,7 @@
         android:gravity="center_horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/minusB"
+            android:id="@+id/r_minusB"
             android:src="@drawable/minus"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -71,7 +81,7 @@
         </Space>
 
         <ImageView
-            android:id="@+id/heart1"
+            android:id="@+id/r_heart1"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/dark_heart"
@@ -83,7 +93,7 @@
         </Space>
 
         <ImageView
-            android:id="@+id/heart2"
+            android:id="@+id/r_heart2"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/dark_heart"
@@ -95,7 +105,7 @@
         </Space>
 
         <ImageView
-            android:id="@+id/heart3"
+            android:id="@+id/r_heart3"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/dark_heart"
@@ -107,7 +117,7 @@
         </Space>
 
         <ImageView
-            android:id="@+id/heart4"
+            android:id="@+id/r_heart4"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/light_heart"
@@ -119,7 +129,7 @@
         </Space>
 
         <ImageView
-            android:id="@+id/heart5"
+            android:id="@+id/r_heart5"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/light_heart"
@@ -131,7 +141,7 @@
         </Space>
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/plusB"
+            android:id="@+id/r_plusB"
             android:src="@drawable/plus"
             android:layout_width="38dp"
             android:layout_height="38dp"
@@ -140,7 +150,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/submitB"
+        android:id="@+id/rate_submitB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

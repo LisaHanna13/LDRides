@@ -25,7 +25,7 @@
         android:layout_margin="20dp">
 
         <TextView
-            android:id="@+id/startPoint"
+            android:id="@+id/ck_startPoint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Pickup Spot: 265, 3d Street"
@@ -35,7 +35,7 @@
             android:drawableLeft="@drawable/ic_location"/>
 
         <TextView
-            android:id="@+id/destination"
+            android:id="@+id/ck_destination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Destination: 10434, Main Street"
@@ -45,7 +45,7 @@
             android:drawableLeft="@drawable/ic_location"/>
 
         <TextView
-            android:id="@+id/duration"
+            android:id="@+id/ck_duration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=" Duration Estimate: 35 minutes"
@@ -81,7 +81,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/subTotal"
+            android:id="@+id/ck_subTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10.00$"
@@ -102,7 +102,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/tps"
+            android:id="@+id/ck_tps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0.50$"
@@ -123,7 +123,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/tvq"
+            android:id="@+id/ck_tvq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1.00$"
@@ -144,7 +144,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/total"
+            android:id="@+id/ck_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="11.50$"
@@ -218,7 +218,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/confirmB"
+        android:id="@+id/ck_confirmB"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -228,7 +228,7 @@
         android:layout_marginTop="24dp"/>
 
     <Button
-        android:id="@+id/cancelB"
+        android:id="@+id/ck_cancelB"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

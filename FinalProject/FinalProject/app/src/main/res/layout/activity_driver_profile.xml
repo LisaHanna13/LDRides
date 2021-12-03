@@ -8,15 +8,15 @@
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profilePic"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_person">
     </de.hdodenhof.circleimageview.CircleImageView>
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/driverName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Deema Hanna"
@@ -26,7 +26,7 @@
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/email"
+        android:id="@+id/driverEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="placeholder@email.com"
@@ -111,7 +111,7 @@
             android:drawableLeft="@drawable/ic_language"/>
 
         <TextView
-            android:id="@+id/languages"
+            android:id="@+id/driverLanguages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="French &amp; English" />
@@ -137,7 +137,7 @@
             android:drawableLeft="@drawable/ic_date"/>
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/driverDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="September 2021" />
@@ -163,7 +163,7 @@
             android:drawableLeft="@drawable/ic_location"/>
 
         <TextView
-            android:id="@+id/location"
+            android:id="@+id/driverLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New York" />
@@ -181,7 +181,7 @@
         android:text="Other Notes:"/>
 
     <EditText
-        android:id="@+id/edit_text"
+        android:id="@+id/driverNotes"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:inputType="text|textMultiLine"
@@ -196,8 +196,8 @@
     </Space>
 
     <Button
+        android:id="@+id/driver_homeB"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/homeB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#ff5c6c"

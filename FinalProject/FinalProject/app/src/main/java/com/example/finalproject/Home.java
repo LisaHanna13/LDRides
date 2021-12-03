@@ -79,7 +79,6 @@ public class Home extends AppCompatActivity {
         Cursor res = databaseHelper.getAllRides(user.getUserId());
         if (res.getCount() == 0) {
             showMessage("Alert", "No past rides found");
-            return;
         }
 
         String[] pastPickups = new String[res.getCount()];

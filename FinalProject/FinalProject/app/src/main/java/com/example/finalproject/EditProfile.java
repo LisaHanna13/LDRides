@@ -70,7 +70,9 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent homeIntent = new Intent(EditProfile.this, Home.class);
-                startActivity(homeIntent);
+
+                homeIntent.putExtra("user", user);
+                startActivityForResult(homeIntent, 1);
             }
         });
     }

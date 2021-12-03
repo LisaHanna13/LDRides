@@ -156,7 +156,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/time"
+        android:id="@+id/timeBeHere"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -199,7 +199,17 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/homeB"
+        android:id="@+id/conf_rateRideB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#ff5c6c"
+        android:textColor="@color/white"
+        android:text="Rate Ride"
+        android:layout_marginTop="24dp"/>
+
+    <Button
+        android:id="@+id/conf_homeB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
