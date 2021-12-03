@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +23,8 @@ public class PastRides extends AppCompatActivity {
     ArrayList<HashMap<String, String>> allRides;
     User user;
 
+    Button pr_homeB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +35,7 @@ public class PastRides extends AppCompatActivity {
 
         databaseHelper = MainActivity.databaseHelper;
         recyclerView = findViewById(R.id.rideRecyclerView);
+        pr_homeB = findViewById(R.id.pr_homeB);
 
         allRides = new ArrayList<>();
 
@@ -37,7 +43,6 @@ public class PastRides extends AppCompatActivity {
         Cursor res = databaseHelper.getAllRides(user.getUserId());
         if (res.getCount() == 0) {
             showMessage("Alert", "No data found");
-            return;
         }
 
         String[] dates = new String[res.getCount()];
@@ -70,6 +75,16 @@ public class PastRides extends AppCompatActivity {
         adapter = new RideRecyclerViewAdapter(dates, drivers, durations, costs, PastRides.this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(PastRides.this));
+
+        pr_homeB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goHomeIntent = new Intent(PastRides.this, Home.class);
+
+                goHomeIntent.putExtra("user", user);
+                startActivityForResult(goHomeIntent, 1);
+            }
+        });
     }
 
     private void showMessage(String title, String message) {

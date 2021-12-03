@@ -122,7 +122,7 @@ public class SpecificRide extends AppCompatActivity {
         // Rate per km
         final double RATE;
 
-        if (Integer.parseInt(passengers) > 4)
+        if (Integer.valueOf(passengers) > 4)
             RATE = 2.50;
         else
             RATE = 1.50;

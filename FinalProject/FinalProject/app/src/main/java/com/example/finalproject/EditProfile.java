@@ -17,6 +17,7 @@ public class EditProfile extends AppCompatActivity {
 
     DatabaseHelper databaseHelper;
     User user;
+    static boolean proceedHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +34,38 @@ public class EditProfile extends AppCompatActivity {
         saveB = findViewById(R.id.saveB);
         homeB = findViewById(R.id.homeB);
 
+        Intent homeIntent = getIntent();
+        user = (User) homeIntent.getSerializableExtra("user");
+
         Intent editProfileIntent = getIntent();
         String userEmail = editProfileIntent.getStringExtra("email");
 
-        // Create a user with all the info
-        user = databaseHelper.getUser(userEmail);
-
         // Display all info from user
-        email.setText(userEmail);
+        if (user != null) {
+            email.setText(user.getEmail());
+        } else {
+            // Create a user with all the info
+            user = databaseHelper.getUser(userEmail);
+            email.setText(userEmail);
+        }
         fNameInput.setText(user.getFirstName());
         lNameInput.setText(user.getLastName());
+        name.setText(fNameInput.getText().toString() + " " + lNameInput.getText().toString());
         phoneNumInput.setText(user.getPhoneNumber());
+
 
         // After user updates info
         saveB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (fNameInput.getText().toString().equals("")
+                        || lNameInput.getText().toString().equals("")
+                        || phoneNumInput.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please fill out your information first.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 boolean isUpdated = databaseHelper.updateUser(user.getUserId(), fNameInput.getText().toString(),
                         lNameInput.getText().toString(), phoneNumInput.getText().toString(),
                         userEmail, user.getPassword(), user.getRating(), user.getKeyword());
@@ -60,6 +77,7 @@ public class EditProfile extends AppCompatActivity {
                     fNameInput.setText(user.getFirstName());
                     lNameInput.setText(user.getLastName());
                     phoneNumInput.setText(user.getPhoneNumber());
+                    proceedHome = true;
                 }
                 else
                     Toast.makeText(getApplicationContext(), "Unsuccessful update", Toast.LENGTH_SHORT).show();
@@ -74,6 +92,12 @@ public class EditProfile extends AppCompatActivity {
                         || phoneNumInput.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(),
                             "Please fill out your information first.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!proceedHome) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please save your information first.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

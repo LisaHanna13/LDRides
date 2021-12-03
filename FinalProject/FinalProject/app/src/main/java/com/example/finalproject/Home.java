@@ -171,7 +171,7 @@ public class Home extends AppCompatActivity {
                 specificRideIntent.putExtra("destination", destination);
                 specificRideIntent.putExtra("pickupLL", String.valueOf(pickupLatLng));
                 specificRideIntent.putExtra("destinationLL", String.valueOf(destinationLatLng));
-                specificRideIntent.putExtra("passengers", String.valueOf(passengers));
+                specificRideIntent.putExtra("passengers", passengers.getText().toString());
 
                 startActivityForResult(specificRideIntent, 1);
             }

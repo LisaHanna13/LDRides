@@ -46,13 +46,14 @@ public class Confirmation extends AppCompatActivity {
 
         Date currentDate = new Date();
         String formatDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDate);
+        String formatCost = String.format("%.2f", cost) + "$";
 
         date.setText(formatDate);
 //        driverName.setText(driver.getFirstName() + " " + driver.getLastName());
 //        licensePlate.setText(driver.getLicensePlate());
         duration.setText(estimateTime + " minutes");
-        totalCost.setText(cost + "$");
-        timeBeHere.setText(estimateTime);
+        totalCost.setText(formatCost);
+        timeBeHere.setText(String.valueOf(estimateTime) + " minutes");
         startPoint.setText("Pickup Spot: " + pickup);
         destination.setText("Destination: " + destinationVal);
 

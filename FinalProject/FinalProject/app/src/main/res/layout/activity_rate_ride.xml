@@ -84,7 +84,7 @@
             android:id="@+id/r_heart1"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/dark_heart"
+            android:src="@drawable/light_heart"
             android:layout_gravity="center_vertical"/>
 
         <Space
@@ -96,7 +96,7 @@
             android:id="@+id/r_heart2"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/dark_heart"
+            android:src="@drawable/light_heart"
             android:layout_gravity="center_vertical"/>
 
         <Space
@@ -108,7 +108,7 @@
             android:id="@+id/r_heart3"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/dark_heart"
+            android:src="@drawable/light_heart"
             android:layout_gravity="center_vertical"/>
 
         <Space

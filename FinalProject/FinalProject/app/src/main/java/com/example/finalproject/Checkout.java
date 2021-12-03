@@ -61,33 +61,33 @@ public class Checkout extends AppCompatActivity {
         ck_tvq.setText(formatTvq);
         ck_total.setText(formatTotal);
 
-        if (cardNum.getText().equals("") || expDate.getText().equals("") || securityCode.getText().equals("")) {
-            Toast.makeText(getApplicationContext(), "Do not leave card information fields empty",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (cardNum.length() != 16) {
-            Toast.makeText(getApplicationContext(), "Invalid Card Number",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (cardNum.length() != 5 && cardNum.length() != 4) {
-            Toast.makeText(getApplicationContext(), "Invalid Expiry Date",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (securityCode.length() != 3) {
-            Toast.makeText(getApplicationContext(), "Invalid Security Code",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         ck_confirmB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (cardNum.getText().equals("") || expDate.getText().equals("") || securityCode.getText().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Do not leave card information fields empty",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (cardNum.length() != 16) {
+                    Toast.makeText(getApplicationContext(), "Invalid Card Number",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (expDate.length() != 5 && expDate.length() != 4) {
+                    Toast.makeText(getApplicationContext(), "Invalid Expiry Date",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (securityCode.length() != 3) {
+                    Toast.makeText(getApplicationContext(), "Invalid Security Code",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent checkoutIntent = new Intent(Checkout.this, Confirmation.class);
 
                 checkoutIntent.putExtra("user", user);
