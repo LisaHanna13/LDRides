@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        databaseHelper.insertRide("2010-04-23", 120, 8.42, "AGAIN", "PLEASE WORK", 2, 0);
 
-//        databaseHelper.insertDriver("Deema", "Mohiar", "dm@hot.com", "1234",
+//        databaseHelper.insertDriver("Deema", "Mohiar", "dm@hotmail.com", "1234",
 //                "arabic, english", "2021-05-31","Montreal", 5,0, "i hate my job", "A123B123");
 
         SI_signInDriverB.setOnClickListener(new View.OnClickListener() {

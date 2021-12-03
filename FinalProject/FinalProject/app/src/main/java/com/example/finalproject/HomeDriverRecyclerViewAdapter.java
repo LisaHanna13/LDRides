@@ -56,8 +56,8 @@ public class HomeDriverRecyclerViewAdapter extends RecyclerView.Adapter<HomeDriv
         holder.userTV.setText(users[position]);
         holder.pickupTV.setText(pickups[position]);
         holder.destinationTV.setText(destinations[position]);
-        holder.durationTv.setText(String.valueOf(durations[position]));
-        holder.costTV.setText(String.format("%.2f", costs[position]));
+        holder.durationTv.setText(String.valueOf(durations[position]) + " minutes");
+        holder.costTV.setText(String.format("%.2f", costs[position]) + "$");
     }
 
     @Override

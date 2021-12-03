@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 public class HomeDriver extends AppCompatActivity {
 
-    TextView welcome, user, ride, pickup, destination, duration, cost;
+    TextView welcome;
     Button signOutB;
 
     DatabaseHelper databaseHelper;

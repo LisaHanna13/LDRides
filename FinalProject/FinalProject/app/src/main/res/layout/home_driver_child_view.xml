@@ -10,13 +10,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="User name: "
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_marginLeft="60dp"/>
 
         <TextView
             android:id="@+id/nameTV"
@@ -24,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:gravity="right"
-            android:layout_marginRight="170dp"/>
+            android:layout_marginRight="100dp"/>
     </LinearLayout>
 
     <Space
@@ -41,7 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pickup location: "
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_marginLeft="60dp"/>
 
         <TextView
             android:id="@+id/pickupTV"
@@ -49,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:gravity="right"
-            android:layout_marginRight="170dp"/>
+            android:layout_marginRight="100dp"/>
     </LinearLayout>
 
     <Space
@@ -66,7 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Destination: "
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_marginLeft="60dp"/>
 
         <TextView
             android:id="@+id/destinationTV"
@@ -74,7 +77,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:gravity="right"
-            android:layout_marginRight="170dp"/>
+            android:layout_marginRight="100dp"/>
     </LinearLayout>
 
     <Space
@@ -91,7 +94,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Duration: "
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_marginLeft="60dp"/>
 
         <TextView
             android:id="@+id/durationTV"
@@ -99,7 +103,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:gravity="right"
-            android:layout_marginRight="170dp"/>
+            android:layout_marginRight="100dp"/>
     </LinearLayout>
 
     <Space
@@ -116,7 +120,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cost: "
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:layout_marginLeft="60dp"/>
 
         <TextView
             android:id="@+id/costTV"
@@ -124,7 +129,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:gravity="right"
-            android:layout_marginRight="170dp"/>
+            android:layout_marginRight="100dp"/>
     </LinearLayout>
 
     <Space

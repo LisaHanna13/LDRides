@@ -198,6 +198,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        return true;
     }
 
+    public boolean updateUserPassword(int userId, String password) {
+
+        String strSQL = String.format("UPDATE %s SET PASSWORD = '%s' WHERE USERID = '%s'",
+                TABLE_NAME1, password, userId);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(strSQL);
+        return true;
+
+
+
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//
+//        contentValues.put(USER_COL_1, firstName);
+//        contentValues.put(USER_COL_2, lastName);
+//        contentValues.put(USER_COL_3, phoneNumber);
+//        contentValues.put(USER_COL_4, email);
+//        contentValues.put(USER_COL_5, password);
+//        contentValues.put(USER_COL_6, rating);
+//        contentValues.put(USER_COL_7, keyword);
+//
+//        String userIdVal = Integer.toString(userId);
+//        db.update(TABLE_NAME1, contentValues, "USERID = ? ", new String[]{userIdVal});
+//        return true;
+    }
+
     @SuppressLint("Range")
     public User getUser(String email) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();

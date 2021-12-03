@@ -49,7 +49,7 @@ public class RideRecyclerViewAdapter extends RecyclerView.Adapter<RideRecyclerVi
         currentRideId = Integer.valueOf(rides[position]);
         holder.dateTv.setText(dates[position]);
         holder.driverTv.setText(drivers[position]);
-        holder.durationTv.setText(String.valueOf(durations[position]));
+        holder.durationTv.setText(String.valueOf(durations[position]) + " minutes");
         holder.costTv.setText(String.format("%.2f", costs[position]) + "$");
     }
 
