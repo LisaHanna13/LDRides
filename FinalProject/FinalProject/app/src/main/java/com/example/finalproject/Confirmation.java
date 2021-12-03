@@ -13,11 +13,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Confirmation extends AppCompatActivity {
-    TextView date, driver, licensePlate, duration, totalCost, startPoint, destination;
+    TextView date, driverName, licensePlate, duration, totalCost, startPoint, destination;
     EditText timeBeHere;
     Button conf_rateRideB, conf_homeB;
 
     User user;
+    Driver driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class Confirmation extends AppCompatActivity {
         setContentView(R.layout.activity_confirmation);
 
         date = findViewById(R.id.date);
-        driver = findViewById(R.id.driver);
+        driverName = findViewById(R.id.conf_driverName);
         licensePlate = findViewById(R.id.licensePlate);
         duration = findViewById(R.id.duration);
         totalCost = findViewById(R.id.totalCost);
@@ -37,6 +38,7 @@ public class Confirmation extends AppCompatActivity {
 
         Intent checkoutIntent = getIntent();
         user = (User) checkoutIntent.getSerializableExtra("user");
+//        driver = (Driver) checkoutIntent.getSerializableExtra("driver");
         String pickup = checkoutIntent.getStringExtra("pickup");
         String destinationVal = checkoutIntent.getStringExtra("destination");
         int estimateTime = checkoutIntent.getIntExtra("estimateTime", 0);
@@ -46,6 +48,8 @@ public class Confirmation extends AppCompatActivity {
         String formatDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDate);
 
         date.setText(formatDate);
+//        driverName.setText(driver.getFirstName() + " " + driver.getLastName());
+//        licensePlate.setText(driver.getLicensePlate());
         duration.setText(estimateTime + " minutes");
         totalCost.setText(cost + "$");
         timeBeHere.setText(estimateTime);
@@ -57,6 +61,7 @@ public class Confirmation extends AppCompatActivity {
             public void onClick(View view) {
                 Intent rateIntent = new Intent(Confirmation.this, RateRide.class);
                 rateIntent.putExtra("user", user);
+//                rateIntent.putExtra("driver", driver);
                 startActivityForResult(rateIntent, 1);
             }
         });

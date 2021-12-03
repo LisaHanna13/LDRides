@@ -18,8 +18,6 @@ public class DriverProfile extends AppCompatActivity {
     Driver driver;
     User user;
 
-    static int counter = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +40,16 @@ public class DriverProfile extends AppCompatActivity {
         heart5 = findViewById(R.id.heart5);
         driver_homeB = findViewById(R.id.driver_homeB);
 
+        // Set basic information
         driverName.setText(driver.getFirstName() + " " + driver.getLastName());
         driverEmail.setText(driver.getEmail());
         driverLanguages.setText(driver.getLanguages());
         driverDate.setText(driver.getDateJoined());
         driverLocation.setText(driver.getLocation());
         driverNotes.setText(driver.getOtherNotes());
+
+        // Set hearts
+        setHearts(driver.getRating());
 
         driver_homeB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,5 +59,53 @@ public class DriverProfile extends AppCompatActivity {
                 startActivityForResult(homeIntent, 1);
             }
         });
+    }
+
+    public void setHearts(int counter) {
+        switch(counter) {
+            case 0:
+                heart1.setImageResource(R.drawable.light_heart);
+                heart2.setImageResource(R.drawable.light_heart);
+                heart3.setImageResource(R.drawable.light_heart);
+                heart4.setImageResource(R.drawable.light_heart);
+                heart5.setImageResource(R.drawable.light_heart);
+                return;
+            case 1:
+                heart1.setImageResource(R.drawable.dark_heart);
+                heart2.setImageResource(R.drawable.light_heart);
+                heart3.setImageResource(R.drawable.light_heart);
+                heart4.setImageResource(R.drawable.light_heart);
+                heart5.setImageResource(R.drawable.light_heart);
+                return;
+            case 2:
+                heart1.setImageResource(R.drawable.dark_heart);
+                heart2.setImageResource(R.drawable.dark_heart);
+                heart3.setImageResource(R.drawable.light_heart);
+                heart4.setImageResource(R.drawable.light_heart);
+                heart5.setImageResource(R.drawable.light_heart);
+                return;
+            case 3:
+                heart1.setImageResource(R.drawable.dark_heart);
+                heart2.setImageResource(R.drawable.dark_heart);
+                heart3.setImageResource(R.drawable.dark_heart);
+                heart4.setImageResource(R.drawable.light_heart);
+                heart5.setImageResource(R.drawable.light_heart);
+                return;
+            case 4:
+                heart1.setImageResource(R.drawable.dark_heart);
+                heart2.setImageResource(R.drawable.dark_heart);
+                heart3.setImageResource(R.drawable.dark_heart);
+                heart4.setImageResource(R.drawable.dark_heart);
+                heart5.setImageResource(R.drawable.light_heart);
+                return;
+            case 5:
+                heart1.setImageResource(R.drawable.dark_heart);
+                heart2.setImageResource(R.drawable.dark_heart);
+                heart3.setImageResource(R.drawable.dark_heart);
+                heart4.setImageResource(R.drawable.dark_heart);
+                heart5.setImageResource(R.drawable.dark_heart);
+                return;
+            default:
+        }
     }
 }

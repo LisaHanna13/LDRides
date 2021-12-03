@@ -51,7 +51,7 @@ public class EditProfile extends AppCompatActivity {
             public void onClick(View view) {
                 boolean isUpdated = databaseHelper.updateUser(user.getUserId(), fNameInput.getText().toString(),
                         lNameInput.getText().toString(), phoneNumInput.getText().toString(),
-                        userEmail, user.getPassword(), user.getRating());
+                        userEmail, user.getPassword(), user.getRating(), user.getKeyword());
 
                 if (isUpdated) {
                     // Update local user
@@ -69,6 +69,14 @@ public class EditProfile extends AppCompatActivity {
         homeB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (fNameInput.getText().toString().equals("")
+                        || lNameInput.getText().toString().equals("")
+                        || phoneNumInput.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please fill out your information first.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent homeIntent = new Intent(EditProfile.this, Home.class);
 
                 homeIntent.putExtra("user", user);

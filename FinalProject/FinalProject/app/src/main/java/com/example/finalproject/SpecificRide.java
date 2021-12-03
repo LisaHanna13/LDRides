@@ -25,6 +25,7 @@ public class SpecificRide extends AppCompatActivity {
     Button SR_checkoutB, SR_cancelB;
 
     User user;
+    String passengers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class SpecificRide extends AppCompatActivity {
         String destination = specificRideIntent.getStringExtra("destination");
         String pickupLL = specificRideIntent.getStringExtra("pickupLL");
         String destinationLL = specificRideIntent.getStringExtra("destinationLL");
-        String passengers = specificRideIntent.getStringExtra("passengers");
+        passengers = specificRideIntent.getStringExtra("passengers");
 
         SR_startPoint = findViewById(R.id.SR_startPoint);
         SR_endPoint = findViewById(R.id.SR_endPoint);
@@ -113,12 +114,18 @@ public class SpecificRide extends AppCompatActivity {
         endPoint.setLatitude(Double.parseDouble(destinationLat));
         endPoint.setLongitude(Double.parseDouble(destinationLong));
 
+        // Note: distance is in METERS!!
         return startPoint.distanceTo(endPoint);
     }
 
     public double calcCost(double distanceInM) {
         // Rate per km
-        final double RATE = 1.50;
+        final double RATE;
+
+        if (Integer.parseInt(passengers) > 4)
+            RATE = 2.50;
+        else
+            RATE = 1.50;
 
         double distanceInKm = distanceInM / 1000;
         return RATE * distanceInKm;

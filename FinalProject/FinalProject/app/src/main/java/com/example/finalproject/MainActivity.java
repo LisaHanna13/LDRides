@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 public class MainActivity extends AppCompatActivity {
     static DatabaseHelper databaseHelper;
 
+    TextView forgotPasswordB;
     EditText emailInput, passwordInput;
     Button signUpB, signInB;
 
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         emailInput = findViewById(R.id.SI_emailInput);
         passwordInput = findViewById(R.id.SI_passwordInput);
+        forgotPasswordB = findViewById(R.id.forgotPasswordB);
         signUpB = findViewById(R.id.SI_signUpB);
         signInB = findViewById(R.id.SI_signInB);
 
@@ -56,6 +59,14 @@ public class MainActivity extends AppCompatActivity {
                 homeIntent.putExtra("user", user);
 
                 startActivityForResult(homeIntent, 1);
+            }
+        });
+
+        forgotPasswordB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(MainActivity.this, ForgotPassword.class);
+                startActivity(intent);
             }
         });
 

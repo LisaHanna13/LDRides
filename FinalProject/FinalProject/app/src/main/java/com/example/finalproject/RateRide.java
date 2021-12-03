@@ -19,6 +19,7 @@ public class RateRide extends AppCompatActivity {
     static int counter;
 
     User user;
+    Driver driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class RateRide extends AppCompatActivity {
 
         Intent rateIntent = getIntent();
         user = (User) rateIntent.getSerializableExtra("user");
+//        driver = (Driver) rateIntent.getSerializableExtra("driver");
 
         viewDriverB = findViewById(R.id.viewDriverB);
         rate_submitB = findViewById(R.id.rate_submitB);
@@ -42,10 +44,9 @@ public class RateRide extends AppCompatActivity {
         viewDriverB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // ADD GODDAMN INTENT HERE with the driver passed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
                 Intent driverIntent = new Intent(RateRide.this, DriverProfile.class);
                 driverIntent.putExtra("user", user);
+//                driverIntent.putExtra("driver", driver);
                 startActivityForResult(driverIntent, 1);
             }
         });
@@ -54,7 +55,7 @@ public class RateRide extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Make sure counter is not below 0
-                if (counter == 0 )
+                if (counter == 0)
                     return;
 
                 counter--;
@@ -71,6 +72,20 @@ public class RateRide extends AppCompatActivity {
 
                 counter++;
                 setHearts(counter);
+            }
+        });
+
+        rate_submitB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentRating = driver.getRating();
+                int newRating = (currentRating + counter) / 2;
+
+                driver.setRating(newRating);
+
+                Intent homeIntent = new Intent(RateRide.this, Home.class);
+                homeIntent.putExtra("user", user);
+                startActivityForResult(homeIntent, 1);
             }
         });
     }

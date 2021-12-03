@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
-public class Ride {
+import java.io.Serializable;
+
+public class Ride implements Serializable {
     String date;
     int duration;
     double cost;

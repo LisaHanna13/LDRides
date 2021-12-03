@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // DB Name
-    public static final String DATABASE_NAME = "final_project.db";
+    public static final String DATABASE_NAME = "appDevProj.db";
 
     // Table Names
     public static final String TABLE_NAME1 = "user_table";
@@ -28,6 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String USER_COL_4 = "EMAIL";
     public static final String USER_COL_5 = "PASSWORD";
     public static final String USER_COL_6 = "RATING";
+    public static final String USER_COL_7 = "KEYWORD";
 
     // Driver Table Columns
     public static final String DRIVER_PK = "DRIVERID";
@@ -61,7 +62,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             " PHONENUMBER text," +
             " EMAIL text," +
             " PASSWORD text," +
-            " RATING integer);";
+            " RATING integer," +
+            " KEYWORD text);";
 
     public static final String CREATE_DRIVER_TABLE = "CREATE TABLE " + TABLE_NAME2 +
             " (DRIVERID integer primary key autoincrement," +
@@ -110,7 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean insertUser(String firstName, String lastName, String phoneNumber, String email,
-                              String password, int rating) {
+                              String password, int rating, String keyword) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -120,6 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(USER_COL_4, email);
         contentValues.put(USER_COL_5, password);
         contentValues.put(USER_COL_6, rating);
+        contentValues.put(USER_COL_7, keyword);
 
         long result = db.insert(TABLE_NAME1, null, contentValues);
         return result != -1;
@@ -165,7 +168,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean updateUser(int userId, String firstName, String lastName, String phoneNumber, String email,
-                              String password, int rating) {
+                              String password, int rating, String keyword) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -175,6 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(USER_COL_4, email);
         contentValues.put(USER_COL_5, password);
         contentValues.put(USER_COL_6, rating);
+        contentValues.put(USER_COL_7, keyword);
 
         String userIdVal = Integer.toString(userId);
         db.update(TABLE_NAME1, contentValues, "USERID = ? ", new String[]{userIdVal});
@@ -201,6 +205,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             user.setEmail(email);
             user.setPassword(res.getString(res.getColumnIndex(USER_COL_5)));
             user.setRating(res.getInt(res.getColumnIndex(USER_COL_6)));
+            user.setKeyword(res.getString(res.getColumnIndex(USER_COL_7)));
         } catch(Exception ex) {
             return new User();
         }

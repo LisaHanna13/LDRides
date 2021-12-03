@@ -16,6 +16,7 @@ public class Checkout extends AppCompatActivity {
     Button ck_confirmB, ck_cancelB;
 
     User user;
+    Driver driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +51,36 @@ public class Checkout extends AppCompatActivity {
         double tvq = cost * 10 / 100;
         double total = tps + tvq + cost;
 
-        ck_subtotal.setText(cost + "$");
-        ck_tps.setText(tps + "$");
-        ck_tvq.setText(tvq + "$");
-        ck_total.setText(total + "$");
+        String formatCost = String.format("%.2f", cost) + "$";
+        String formatTps = String.format("%.2f", tps) + "$";
+        String formatTvq = String.format("%.2f", tvq) + "$";
+        String formatTotal = String.format("%.2f", total) + "$";
+
+        ck_subtotal.setText(formatCost);
+        ck_tps.setText(formatTps);
+        ck_tvq.setText(formatTvq);
+        ck_total.setText(formatTotal);
 
         if (cardNum.getText().equals("") || expDate.getText().equals("") || securityCode.getText().equals("")) {
             Toast.makeText(getApplicationContext(), "Do not leave card information fields empty",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (cardNum.length() != 16) {
+            Toast.makeText(getApplicationContext(), "Invalid Card Number",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (cardNum.length() != 5 && cardNum.length() != 4) {
+            Toast.makeText(getApplicationContext(), "Invalid Expiry Date",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (securityCode.length() != 3) {
+            Toast.makeText(getApplicationContext(), "Invalid Security Code",
                     Toast.LENGTH_SHORT).show();
             return;
         }
@@ -67,6 +91,7 @@ public class Checkout extends AppCompatActivity {
                 Intent checkoutIntent = new Intent(Checkout.this, Confirmation.class);
 
                 checkoutIntent.putExtra("user", user);
+//                checkoutIntent.putExtra("driver", driver);
                 checkoutIntent.putExtra("pickup", pickup);
                 checkoutIntent.putExtra("destination", destination);
                 checkoutIntent.putExtra("estimateTime", estimateTime);

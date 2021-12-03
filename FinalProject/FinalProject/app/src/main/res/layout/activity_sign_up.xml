@@ -63,6 +63,26 @@
         android:layout_marginTop="15dp"
         android:textSize="15sp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Keyword"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="30dp"
+        android:textColor="#ff5c6c"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/keywordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Keyword to be used in case of forgotten password..."
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp"
+        android:textSize="15sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

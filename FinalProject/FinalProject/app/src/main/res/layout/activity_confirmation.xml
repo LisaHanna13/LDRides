@@ -56,11 +56,11 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/driver"
+            android:id="@+id/conf_driverName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Deema Hanna"
-            android:layout_marginRight="20dp"/>
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:text="Deema Hanna" />
     </LinearLayout>
 
     <LinearLayout

@@ -10,10 +10,12 @@ public class User implements Serializable {
     String email;
     String password;
     int rating;
+    String keyword;
 
     public User() {}
 
-    public User(int userId, String firstName, String lastName, String phoneNumber, String email, String password, int rating) {
+    public User(int userId, String firstName, String lastName, String phoneNumber, String email,
+                String password, int rating, String keyword) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -21,6 +23,7 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.rating = rating;
+        this.keyword = keyword;
     }
 
     public int getUserId() {
@@ -77,5 +80,13 @@ public class User implements Serializable {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

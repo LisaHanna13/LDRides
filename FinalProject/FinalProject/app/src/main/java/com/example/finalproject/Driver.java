@@ -1,6 +1,8 @@
 package com.example.finalproject;
 
-public class Driver {
+import java.io.Serializable;
+
+public class Driver implements Serializable {
     int driverId;
     String firstName;
     String lastName;
