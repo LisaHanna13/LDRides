@@ -1,11 +1,14 @@
 package com.example.finalproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -25,6 +29,9 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -36,12 +43,19 @@ public class Home extends AppCompatActivity {
     CircleImageView minusB, plusB;
     Button searchB;
 
+    DatabaseHelper databaseHelper;
     User user;
+
+    RecyclerView recyclerView;
+    HomeRecyclerViewAdapter adapter;
+    ArrayList<HashMap<String, String>> pastRides;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        databaseHelper = MainActivity.databaseHelper;
 
         Intent homeIntent = getIntent();
         user = (User) homeIntent.getSerializableExtra("user");
@@ -54,8 +68,40 @@ public class Home extends AppCompatActivity {
         minusB = findViewById(R.id.minusB);
         plusB = findViewById(R.id.plusB);
         searchB = findViewById(R.id.searchB);
+        recyclerView = findViewById(R.id.homeRecyclerView);
 
         welcome.setText("Welcome " + user.getFirstName());
+
+        //-----------------------------------------------------------------------------------------
+
+        // Recycler view section
+        pastRides = new ArrayList<>();
+        Cursor res = databaseHelper.getAllRides(user.getUserId());
+        if (res.getCount() == 0) {
+            showMessage("Alert", "No past rides found");
+            return;
+        }
+
+        String[] pastPickups = new String[res.getCount()];
+        String[] pastDestinations = new String[res.getCount()];
+
+        while (res.moveToNext()) {
+            pastPickups[res.getPosition()] = res.getString(4);
+            pastDestinations[res.getPosition()] = res.getString(5);
+
+            // Fill Hashmap
+            HashMap<String, String> retrievedRide = new HashMap<>();
+            retrievedRide.put("pastPickup", String.valueOf(res.getInt(4)));
+            retrievedRide.put("pastDestination", String.valueOf(res.getDouble(5)));
+
+            pastRides.add(retrievedRide);
+        }
+
+        adapter = new HomeRecyclerViewAdapter(pastPickups, pastDestinations, Home.this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(Home.this));
+
+        //-----------------------------------------------------------------------------------------
 
         // Search for locations
         searchB.setOnClickListener(new View.OnClickListener() {
@@ -76,8 +122,8 @@ public class Home extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                LatLng pickupLatLng;
-                LatLng destinationLatLng;
+                LatLng pickupLatLng = null;
+                LatLng destinationLatLng = null;
 
                 // Pickup
                 if (pickupAddressList != null)
@@ -87,7 +133,9 @@ public class Home extends AppCompatActivity {
                                 userPickupAddress.getLongitude());
                     }
                 else {
-                    
+                    Toast.makeText(getApplicationContext(), "Please enter a pickup address",
+                            Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 // Destination
@@ -97,10 +145,40 @@ public class Home extends AppCompatActivity {
                         destinationLatLng = new LatLng(userDestinationAddress.getLatitude(),
                                 userDestinationAddress.getLongitude());
                     }
+                else {
+                    Toast.makeText(getApplicationContext(), "Please enter a destination address",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                // Make sure addresses exist
+                if (pickupLatLng == null) {
+                    Toast.makeText(getApplicationContext(), "Invalid pickup address",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                if (destinationLatLng == null) {
+                    Toast.makeText(getApplicationContext(), "Invalid destination address",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // If all is well, proceed to next page
+                Intent specificRideIntent = new Intent(Home.this, SpecificRide.class);
+
+                specificRideIntent.putExtra("user", user);
+                specificRideIntent.putExtra("pickup", pickup);
+                specificRideIntent.putExtra("destination", destination);
+                specificRideIntent.putExtra("pickupLL", String.valueOf(pickupLatLng));
+                specificRideIntent.putExtra("destinationLL", String.valueOf(destinationLatLng));
+                specificRideIntent.putExtra("passengers", String.valueOf(passengers));
+
+                startActivityForResult(specificRideIntent, 1);
             }
         });
+
+        //-----------------------------------------------------------------------------------------
 
         // For number of passengers
         minusB.setOnClickListener(new View.OnClickListener() {
@@ -108,8 +186,8 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
                 int currentPassengers = Integer.parseInt(passengers.getText().toString());
 
-                // Make sure value can't be negative
-                if (currentPassengers == 0)
+                // Make sure value can't be below 1
+                if (currentPassengers == 1)
                     return;
 
                 // If not negative, decrement value
@@ -132,6 +210,14 @@ public class Home extends AppCompatActivity {
                 passengers.setText(String.valueOf(currentPassengers));
             }
         });
+    }
+
+    private void showMessage(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
     }
 
     @Override
