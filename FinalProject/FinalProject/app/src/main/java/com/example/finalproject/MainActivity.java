@@ -10,8 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Serializable;
-
 public class MainActivity extends AppCompatActivity {
     static DatabaseHelper databaseHelper;
 
@@ -20,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Button signUpB, signInB;
 
     User user;
+    Driver driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,31 +33,51 @@ public class MainActivity extends AppCompatActivity {
         signUpB = findViewById(R.id.SI_signUpB);
         signInB = findViewById(R.id.SI_signInB);
 
+//        databaseHelper.insertDriver("Deema", "Mohiar", "dm@hot.com", "1234",
+//                "arabic, english", "2021-05-31","Montreal", 5,0, "i hate my job", "A123B123");
+
         signInB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Start by looking for user that matches email
-                user = databaseHelper.getUser(emailInput.getText().toString());
 
-                // Make sure user exists
-                if (user.getEmail() == null) {
-                    Toast.makeText(getApplicationContext(), "Account not found.",
-                            Toast.LENGTH_SHORT).show();
-                    return;
+                // check if driver is trying to login
+                driver = databaseHelper.getDriverByEmail(emailInput.getText().toString());
+
+                if (driver.getEmail() != null) {
+                    if (driver.getPassword().equals(passwordInput.getText().toString())) {
+                        // Otherwise, allow user to go through
+                        Intent homeDriverIntent = new Intent(MainActivity.this, HomeDriver.class);
+                        homeDriverIntent.putExtra("driver", driver);
+
+                        startActivityForResult(homeDriverIntent, 1);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Invalid password",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
+                // checks if user is trying to login
+                else {
+                    user = databaseHelper.getUser(emailInput.getText().toString());
+                    if (user.getEmail() != null) {
+                        // Make sure password matches
+                        if (user.getPassword().equals(passwordInput.getText().toString())) {
+                            // Otherwise, allow user to go through
+                            Intent homeIntent = new Intent(MainActivity.this, Home.class);
+                            homeIntent.putExtra("user", user);
 
-                // Make sure password matches
-                if (!user.getPassword().equals(passwordInput.getText().toString())) {
-                    Toast.makeText(getApplicationContext(), "Invalid password",
-                            Toast.LENGTH_SHORT).show();
-                    return;
+                            startActivityForResult(homeIntent, 1);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Invalid password",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Account not found.",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
-
-                // Otherwise, allow user to go through
-                Intent homeIntent = new Intent(MainActivity.this, Home.class);
-                homeIntent.putExtra("user", user);
-
-                startActivityForResult(homeIntent, 1);
             }
         });
 

@@ -9,11 +9,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // DB Name
-    public static final String DATABASE_NAME = "appDevProj.db";
+    public static final String DATABASE_NAME = "appDevProject.db";
 
     // Table Names
     public static final String TABLE_NAME1 = "user_table";
@@ -69,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             " (DRIVERID integer primary key autoincrement," +
             " FIRSTNAME text," +
             " LASTNAME text, " +
-            " EMAIL text," +
+            " EMAIL text UNIQUE," +
             " PASSWORD text," +
             " LANGUAGES text," +
             " DATEJOINED text," +
@@ -87,7 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             " PICKUP text," +
             " DESTINATION text," +
             " USERID integer," +
-            " DRIVERID integer," +
+            " DRIVERID integer NULL," +
             " FOREIGN KEY (USERID) REFERENCES " + TABLE_NAME1 + "(USERID)," +
             " FOREIGN KEY (DRIVERID) REFERENCES " + TABLE_NAME2 + "(DRIVERID));";
 
@@ -100,6 +102,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_USER_TABLE);
         sqLiteDatabase.execSQL(CREATE_DRIVER_TABLE);
         sqLiteDatabase.execSQL(CREATE_RIDE_TABLE);
+//        insertDriver("Deema", "Mohiar", "dm@homtail.com", "1234",
+//                "arabic, english", "2021-05-31","Montreal", 5,0, "i hate my job", "A123B123");
     }
 
     @Override
@@ -214,7 +218,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public Driver getDriver(int driverId) {
+    public Driver getDriverByEmail(String email) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_NAME2 + " WHERE email = '" + email + "';";
+
+        Cursor res = sqLiteDatabase.rawQuery(selectQuery, null);
+        if (res != null)
+            res.moveToFirst();
+
+        Driver driver = new Driver();
+
+        try {
+            driver.setDriverId(res.getInt(res.getColumnIndex(DRIVER_PK)));
+            driver.setFirstName(res.getString(res.getColumnIndex(DRIVER_COL_1)));
+            driver.setLastName(res.getString(res.getColumnIndex(DRIVER_COL_2)));
+            driver.setEmail(res.getString(res.getColumnIndex(DRIVER_COL_3)));
+            driver.setPassword(res.getString(res.getColumnIndex(DRIVER_COL_4)));
+            driver.setLanguages(res.getString(res.getColumnIndex(DRIVER_COL_5)));
+            driver.setDateJoined(res.getString(res.getColumnIndex(DRIVER_COL_6)));
+            driver.setLocation(res.getString(res.getColumnIndex(DRIVER_COL_7)));
+            driver.setRating(res.getInt(res.getColumnIndex(DRIVER_COL_8)));
+            driver.setNumberOfRides(res.getInt(res.getColumnIndex(DRIVER_COL_9)));
+            driver.setOtherNotes(res.getString(res.getColumnIndex(DRIVER_COL_10)));
+            driver.setLicensePlate(res.getString(res.getColumnIndex(DRIVER_COL_11)));
+        } catch(Exception ex) {
+            return new Driver();
+        }
+
+        return driver;
+    }
+
+
+    @SuppressLint("Range")
+    public Driver getDriverById(int driverId) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
         String selectQuery = "SELECT * FROM " + TABLE_NAME2 + " WHERE DRIVERID = " + driverId + ";";
@@ -251,4 +288,72 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " WHERE USERID = " + userId + ";", null);
         return res;
     }
+
+    // will get the number of existing rides and id of most recently created ride
+    public int getLastRideId() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        String numRidesQuery = "SELECT * FROM " + TABLE_NAME3 + ";";
+
+        Cursor res = sqLiteDatabase.rawQuery(numRidesQuery, null);
+
+        return res.getCount();
+    }
+
+    public boolean assignDriverToRide(int driverId, int rideId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(RIDE_FK2, driverId);
+
+        String rideIdVal = Integer.toString(rideId);
+        db.update(TABLE_NAME3, contentValues, "RIDEID = ? ", new String[]{rideIdVal});
+        return true;
+    }
+
+    public boolean assignDateToRide(int rideId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(RIDE_COL_1, new SimpleDateFormat("yyyy-MM-DD").format(new Date()));
+        String rideIdVal = Integer.toString(rideId);
+        db.update(TABLE_NAME3, contentValues, "RIDEID = ? ", new String[]{rideIdVal});
+        return true;
+    }
+
+    @SuppressLint("Range")
+    public boolean isDriverSetByRideId (int rideId) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        // if id = 0, thats how u know driver has not been set
+        String selectQuery = "SELECT DRIVERID FROM " + TABLE_NAME3 + " WHERE RIDEID = " + rideId + " AND DRIVERID = NULL;";
+
+        Cursor res = sqLiteDatabase.rawQuery(selectQuery, null);
+        if (res != null)
+            return false;
+
+        return true;
+    }
+
+    public boolean isDriverSetByUserId (int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_NAME3 + " WHERE USERID = " + userId + " AND DRIVERID = NULL;";
+
+        Cursor res = db.rawQuery(selectQuery, null);
+
+        if(res.getCount() != 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public Cursor getAllUnassignedRides() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME3
+                + " WHERE DRIVERID = 0;", null);
+        return res;
+    }
+
+
 }

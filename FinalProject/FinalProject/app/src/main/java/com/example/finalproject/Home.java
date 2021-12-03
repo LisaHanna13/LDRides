@@ -7,6 +7,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.location.Address;
@@ -41,7 +42,7 @@ public class Home extends AppCompatActivity {
     EditText pickupInput, destinationInput;
     RecyclerView homeRecyclerView;
     CircleImageView minusB, plusB;
-    Button searchB;
+    Button searchB, signOutB;
 
     DatabaseHelper databaseHelper;
     User user;
@@ -64,10 +65,11 @@ public class Home extends AppCompatActivity {
         passengers = findViewById(R.id.passengers);
         pickupInput = findViewById(R.id.pickupInput);
         destinationInput = findViewById(R.id.destinationInput);
-        homeRecyclerView = findViewById(R.id.homeRecyclerView);
+        //homeRecyclerView = findViewById(R.id.homeRecyclerView);
         minusB = findViewById(R.id.minusB);
         plusB = findViewById(R.id.plusB);
         searchB = findViewById(R.id.searchB);
+        signOutB = findViewById(R.id.signOutB);
         recyclerView = findViewById(R.id.homeRecyclerView);
 
         welcome.setText("Welcome " + user.getFirstName());
@@ -209,6 +211,16 @@ public class Home extends AppCompatActivity {
                 passengers.setText(String.valueOf(currentPassengers));
             }
         });
+
+        // when user wants to log out
+        signOutB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent loginIntent = new Intent(Home.this, MainActivity.class);
+                startActivityForResult(loginIntent, 1);
+            }
+        });
+
     }
 
     private void showMessage(String title, String message) {

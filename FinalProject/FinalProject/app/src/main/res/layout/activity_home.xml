@@ -8,15 +8,25 @@
     android:orientation="vertical"
     android:id="@+id/homeParentLayout">
 
+    <Button
+        android:id="@+id/signOutB"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:backgroundTint="#ff5c6c"
+        android:textColor="@color/white"
+        android:text="Sign Out"
+        android:layout_marginTop="0dp"/>
+
     <TextView
         android:id="@+id/welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:text="Welcome, Lisa"
-        android:textSize="25sp"
         android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"/>
+        android:textSize="25sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -160,4 +170,5 @@
         android:textColor="@color/white"
         android:text="Search"
         android:layout_marginTop="40dp"/>
+
 </LinearLayout>

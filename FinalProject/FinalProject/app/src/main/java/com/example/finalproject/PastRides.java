@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -57,7 +56,8 @@ public class PastRides extends AppCompatActivity {
 
             // For the driver
             int driverId = res.getInt(7);
-            Driver driver = databaseHelper.getDriver(driverId);
+            String driverEmail = databaseHelper.getDriverById(driverId).getEmail();
+            Driver driver = databaseHelper.getDriverByEmail(driverEmail);
 
             String driverName = driver.getFirstName() + " " + driver.getLastName();
             drivers[res.getPosition()] = driverName;

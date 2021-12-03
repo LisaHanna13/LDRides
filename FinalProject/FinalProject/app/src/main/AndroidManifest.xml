@@ -66,6 +66,9 @@
             android:name=".SignUp"
             android:exported="true" />
         <activity
+            android:name=".HomeDriver"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

@@ -1,7 +1,10 @@
 package com.example.finalproject;
 
+import static java.sql.Types.NULL;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,10 +21,14 @@ public class Checkout extends AppCompatActivity {
     User user;
     Driver driver;
 
+    DatabaseHelper databaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+
+        databaseHelper = MainActivity.databaseHelper;
 
         ck_startPoint = findViewById(R.id.ck_startPoint);
         ck_destination = findViewById(R.id.ck_destination);
@@ -97,7 +104,21 @@ public class Checkout extends AppCompatActivity {
                 checkoutIntent.putExtra("estimateTime", estimateTime);
                 checkoutIntent.putExtra("cost", cost);
 
-                startActivityForResult(checkoutIntent, 1);
+
+                boolean isRideCreated = databaseHelper.insertRide(null, estimateTime, cost, pickup, destination, user.getUserId(),NULL);
+                if (isRideCreated) {
+                    // if driver has not accepted ride
+                    if (!databaseHelper.isDriverSetByRideId(databaseHelper.getLastRideId() + 1)) {
+                        ProgressDialog progressDialog = new ProgressDialog(Checkout.this);
+                        progressDialog.setMessage("Please wait while a driver accepts your ride request .....");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+                    }
+                    else {
+                        startActivityForResult(checkoutIntent, 1);
+                    }
+                }
+
             }
         });
 

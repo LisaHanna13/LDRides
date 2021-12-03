@@ -49,8 +49,8 @@ public class Confirmation extends AppCompatActivity {
         String formatCost = String.format("%.2f", cost) + "$";
 
         date.setText(formatDate);
-//        driverName.setText(driver.getFirstName() + " " + driver.getLastName());
-//        licensePlate.setText(driver.getLicensePlate());
+        driverName.setText(driver.getFirstName() + " " + driver.getLastName());
+        licensePlate.setText(driver.getLicensePlate());
         duration.setText(estimateTime + " minutes");
         totalCost.setText(formatCost);
         timeBeHere.setText(String.valueOf(estimateTime) + " minutes");
