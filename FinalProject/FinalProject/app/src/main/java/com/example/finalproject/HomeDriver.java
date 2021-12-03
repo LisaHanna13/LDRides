@@ -65,7 +65,6 @@ public class HomeDriver extends AppCompatActivity {
 
         if (res.getCount() == 0) {
             showMessage("Alert", "No rides to accept at the moment");
-            return;
         }
 
         int[] allRides = new int[res.getCount()];
@@ -77,7 +76,7 @@ public class HomeDriver extends AppCompatActivity {
 
         while (res.moveToNext()) {
             allRides[res.getPosition()] = Integer.valueOf(res.getString(0));
-            allUsers[res.getPosition()] = res.getString(6);
+            allUsers[res.getPosition()] = databaseHelper.getUserName(Integer.valueOf(res.getString(6)));
             allPickups[res.getPosition()] = res.getString(4);
             allDestinations[res.getPosition()] = res.getString(5);
             allDurations[res.getPosition()] = Integer.valueOf(res.getString(2));
@@ -98,7 +97,7 @@ public class HomeDriver extends AppCompatActivity {
             @Override public void onPositionClicked(int position) {
                 // position has been programmed in Adapter to return rideId
                 databaseHelper.assignDriverToRide(driver.getDriverId(), position);
-                databaseHelper.assignDateToRide(position);
+//                databaseHelper.assignDateToRide(position);
                 listAllPotentialRides();
             }
         });
@@ -106,6 +105,7 @@ public class HomeDriver extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+
     }
 
 

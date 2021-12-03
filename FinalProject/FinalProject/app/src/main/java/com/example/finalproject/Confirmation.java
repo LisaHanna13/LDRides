@@ -36,13 +36,13 @@ public class Confirmation extends AppCompatActivity {
         conf_rateRideB = findViewById(R.id.conf_rateRideB);
         conf_homeB = findViewById(R.id.conf_homeB);
 
-        Intent checkoutIntent = getIntent();
-        user = (User) checkoutIntent.getSerializableExtra("user");
-//        driver = (Driver) checkoutIntent.getSerializableExtra("driver");
-        String pickup = checkoutIntent.getStringExtra("pickup");
-        String destinationVal = checkoutIntent.getStringExtra("destination");
-        int estimateTime = checkoutIntent.getIntExtra("estimateTime", 0);
-        double cost = checkoutIntent.getDoubleExtra("cost", 0);
+        Intent confirmationIntent = getIntent();
+        user = (User) confirmationIntent.getSerializableExtra("user");
+        driver = (Driver) confirmationIntent.getSerializableExtra("driver");
+        String pickup = confirmationIntent.getStringExtra("pickup");
+        String destinationVal = confirmationIntent.getStringExtra("destination");
+        int estimateTime = confirmationIntent.getIntExtra("estimateTime", 0);
+        double cost = confirmationIntent.getDoubleExtra("cost", 0);
 
         Date currentDate = new Date();
         String formatDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDate);
@@ -62,7 +62,7 @@ public class Confirmation extends AppCompatActivity {
             public void onClick(View view) {
                 Intent rateIntent = new Intent(Confirmation.this, RateRide.class);
                 rateIntent.putExtra("user", user);
-//                rateIntent.putExtra("driver", driver);
+                rateIntent.putExtra("driver", driver);
                 startActivityForResult(rateIntent, 1);
             }
         });

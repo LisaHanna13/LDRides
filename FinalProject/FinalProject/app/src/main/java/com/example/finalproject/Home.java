@@ -243,9 +243,12 @@ public class Home extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.editProfileView:
-                Intent homeIntent = new Intent(Home.this, EditProfile.class);
-                homeIntent.putExtra("user", user);
-                startActivityForResult(homeIntent, 1);
+                Intent homeIntent = getIntent();
+                user = (User) homeIntent.getSerializableExtra("user");
+
+                Intent goToEditIntent = new Intent(Home.this, EditProfile.class);
+                goToEditIntent.putExtra("user", user);
+                startActivityForResult(goToEditIntent, 1);
                 return true;
             case R.id.pastRidesView:
                 Intent homeIntent2 = new Intent(Home.this, PastRides.class);

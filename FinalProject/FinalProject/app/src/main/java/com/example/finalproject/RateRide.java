@@ -16,10 +16,11 @@ public class RateRide extends AppCompatActivity {
     EditText comments;
     CircleImageView r_minusB, r_plusB;
     ImageView r_heart1, r_heart2, r_heart3, r_heart4, r_heart5;
-    static int counter;
+    int counter;
 
     User user;
     Driver driver;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,8 @@ public class RateRide extends AppCompatActivity {
 
         Intent rateIntent = getIntent();
         user = (User) rateIntent.getSerializableExtra("user");
-//        driver = (Driver) rateIntent.getSerializableExtra("driver");
+        driver = (Driver) rateIntent.getSerializableExtra("driver");
+        databaseHelper = MainActivity.databaseHelper;
 
         viewDriverB = findViewById(R.id.viewDriverB);
         rate_submitB = findViewById(R.id.rate_submitB);
@@ -46,7 +48,7 @@ public class RateRide extends AppCompatActivity {
             public void onClick(View view) {
                 Intent driverIntent = new Intent(RateRide.this, DriverProfile.class);
                 driverIntent.putExtra("user", user);
-//                driverIntent.putExtra("driver", driver);
+                driverIntent.putExtra("driver", driver);
                 startActivityForResult(driverIntent, 1);
             }
         });
@@ -82,6 +84,7 @@ public class RateRide extends AppCompatActivity {
                 int newRating = (currentRating + counter) / 2;
 
                 driver.setRating(newRating);
+                databaseHelper.updateRating(Integer.valueOf(driver.getDriverId()), newRating);
 
                 Intent homeIntent = new Intent(RateRide.this, Home.class);
                 homeIntent.putExtra("user", user);

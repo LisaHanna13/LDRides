@@ -51,8 +51,7 @@ public class NewPassword extends AppCompatActivity {
                 }
 
                 boolean isUpdated = databaseHelper.updateUser(user.getUserId(), user.getFirstName(),
-                        user.getLastName(), user.getPhoneNumber(), user.getEmail(),
-                        newPasswordInput.getText().toString(), user.getRating(), user.getKeyword());
+                        user.getLastName(), user.getPhoneNumber());
 
                 if (isUpdated) {
                     Toast.makeText(getApplicationContext(), "Password successfully updated!",

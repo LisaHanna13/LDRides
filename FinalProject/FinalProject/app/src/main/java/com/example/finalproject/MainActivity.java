@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView forgotPasswordB;
     EditText emailInput, passwordInput;
-    Button signUpB, signInB;
+    Button signUpB, SI_signInClientB, SI_signInDriverB;
 
     User user;
     Driver driver;
@@ -31,12 +31,17 @@ public class MainActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.SI_passwordInput);
         forgotPasswordB = findViewById(R.id.forgotPasswordB);
         signUpB = findViewById(R.id.SI_signUpB);
-        signInB = findViewById(R.id.SI_signInB);
+        SI_signInClientB = findViewById(R.id.SI_signInClientB);
+        SI_signInDriverB = findViewById(R.id.SI_signInDriverB);
+
+//        databaseHelper.updateUser(2, "lisa", "hanna", "4131234123", "lisa", "123", 5, "berlin");
+
+//        databaseHelper.insertRide("2010-04-23", 120, 8.42, "AGAIN", "PLEASE WORK", 2, 0);
 
 //        databaseHelper.insertDriver("Deema", "Mohiar", "dm@hot.com", "1234",
 //                "arabic, english", "2021-05-31","Montreal", 5,0, "i hate my job", "A123B123");
 
-        signInB.setOnClickListener(new View.OnClickListener() {
+        SI_signInDriverB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -58,28 +63,40 @@ public class MainActivity extends AppCompatActivity {
                 }
                 // checks if user is trying to login
                 else {
-                    user = databaseHelper.getUser(emailInput.getText().toString());
-                    if (user.getEmail() != null) {
-                        // Make sure password matches
-                        if (user.getPassword().equals(passwordInput.getText().toString())) {
-                            // Otherwise, allow user to go through
-                            Intent homeIntent = new Intent(MainActivity.this, Home.class);
-                            homeIntent.putExtra("user", user);
-
-                            startActivityForResult(homeIntent, 1);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Invalid password",
-                                    Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Account not found.",
-                                Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                    Toast.makeText(getApplicationContext(), "You are not a driver get out.",
+                            Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
         });
+
+        // check if client is trying to log in
+        SI_signInClientB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user = databaseHelper.getUser(emailInput.getText().toString());
+
+                if (user.getEmail() != null) {
+                    // Make sure password matches
+                    if (user.getPassword().equals(passwordInput.getText().toString())) {
+                        // Otherwise, allow user to go through
+                        Intent homeIntent = new Intent(MainActivity.this, Home.class);
+                        homeIntent.putExtra("user", user);
+
+                        startActivityForResult(homeIntent, 1);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Invalid password",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "You are not a user get out.",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        });
+
 
         forgotPasswordB.setOnClickListener(new View.OnClickListener() {
             @Override

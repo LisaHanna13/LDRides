@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +33,7 @@ public class EditProfile extends AppCompatActivity {
         lNameInput = findViewById(R.id.lNameInput);
         phoneNumInput = findViewById(R.id.phoneNumInput);
         saveB = findViewById(R.id.saveB);
-        homeB = findViewById(R.id.homeB);
+//        homeB = findViewById(R.id.homeB);
 
         Intent homeIntent = getIntent();
         user = (User) homeIntent.getSerializableExtra("user");
@@ -66,46 +67,75 @@ public class EditProfile extends AppCompatActivity {
                     return;
                 }
 
+                if(!isAlphabetic(fNameInput.getText().toString()) || !isAlphabetic(lNameInput.getText().toString())) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please enter a valid name u idiot sandwich.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (phoneNumInput.length() != 10 && phoneNumInput.length() != 12 ||
+                        !PhoneNumberUtils.isGlobalPhoneNumber(phoneNumInput.getText().toString())) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please enter a valid phone number idiot.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 boolean isUpdated = databaseHelper.updateUser(user.getUserId(), fNameInput.getText().toString(),
-                        lNameInput.getText().toString(), phoneNumInput.getText().toString(),
-                        userEmail, user.getPassword(), user.getRating(), user.getKeyword());
+                        lNameInput.getText().toString(), phoneNumInput.getText().toString());
 
                 if (isUpdated) {
                     // Update local user
-                    user = databaseHelper.getUser(userEmail);
-                    name.setText(fNameInput.getText().toString() + " " + lNameInput.getText().toString());
-                    fNameInput.setText(user.getFirstName());
-                    lNameInput.setText(user.getLastName());
-                    phoneNumInput.setText(user.getPhoneNumber());
-                    proceedHome = true;
+//                    user = databaseHelper.getUser(userEmail);
+                    user.setFirstName(fNameInput.getText().toString());
+                    user.setLastName(lNameInput.getText().toString());
+                    user.setPhoneNumber(phoneNumInput.getText().toString());
+
+                    Intent homeIntent = new Intent(EditProfile.this, Home.class);
+
+                    homeIntent.putExtra("user", user);
+                    startActivityForResult(homeIntent, 1);
+//                    name.setText(fNameInput.getText().toString() + " " + lNameInput.getText().toString());
+//                    fNameInput.setText(user.getFirstName());
+//                    lNameInput.setText(user.getLastName());
+//                    phoneNumInput.setText(user.getPhoneNumber());
+//                    proceedHome = true;
                 }
                 else
                     Toast.makeText(getApplicationContext(), "Unsuccessful update", Toast.LENGTH_SHORT).show();
             }
         });
 
-        homeB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (fNameInput.getText().toString().equals("")
-                        || lNameInput.getText().toString().equals("")
-                        || phoneNumInput.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(),
-                            "Please fill out your information first.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//        homeB.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (fNameInput.getText().toString().equals("")
+//                        || lNameInput.getText().toString().equals("")
+//                        || phoneNumInput.getText().toString().equals("")) {
+//                    Toast.makeText(getApplicationContext(),
+//                            "Please fill out your information first.", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                if (!proceedHome) {
+//                    Toast.makeText(getApplicationContext(),
+//                            "Please save your information first.", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                Intent homeIntent = new Intent(EditProfile.this, Home.class);
+//
+//                homeIntent.putExtra("user", user);
+//                startActivityForResult(homeIntent, 1);
+//            }
+//        });
+    }
 
-                if (!proceedHome) {
-                    Toast.makeText(getApplicationContext(),
-                            "Please save your information first.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Intent homeIntent = new Intent(EditProfile.this, Home.class);
-
-                homeIntent.putExtra("user", user);
-                startActivityForResult(homeIntent, 1);
+    public boolean isAlphabetic(String name) {
+        for (int i = 0; i < name.length(); i++) {
+            if (!Character.isAlphabetic(name.charAt(i))) {
+                return false;
             }
-        });
+        }
+        return true;
     }
 }

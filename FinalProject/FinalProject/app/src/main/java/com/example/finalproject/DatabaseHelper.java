@@ -171,22 +171,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public boolean updateUser(int userId, String firstName, String lastName, String phoneNumber, String email,
-                              String password, int rating, String keyword) {
+    public boolean updateUser(int userId, String firstName, String lastName, String phoneNumber) {
+
+        String strSQL = String.format("UPDATE %s SET FIRSTNAME = '%s', LASTNAME = '%s', PHONENUMBER = '%s' WHERE USERID = '%s'",
+                TABLE_NAME1, firstName, lastName, phoneNumber, userId);
+
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(USER_COL_1, firstName);
-        contentValues.put(USER_COL_2, lastName);
-        contentValues.put(USER_COL_3, phoneNumber);
-        contentValues.put(USER_COL_4, email);
-        contentValues.put(USER_COL_5, password);
-        contentValues.put(USER_COL_6, rating);
-        contentValues.put(USER_COL_7, keyword);
-
-        String userIdVal = Integer.toString(userId);
-        db.update(TABLE_NAME1, contentValues, "USERID = ? ", new String[]{userIdVal});
+        db.execSQL(strSQL);
         return true;
+
+
+
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//
+//        contentValues.put(USER_COL_1, firstName);
+//        contentValues.put(USER_COL_2, lastName);
+//        contentValues.put(USER_COL_3, phoneNumber);
+//        contentValues.put(USER_COL_4, email);
+//        contentValues.put(USER_COL_5, password);
+//        contentValues.put(USER_COL_6, rating);
+//        contentValues.put(USER_COL_7, keyword);
+//
+//        String userIdVal = Integer.toString(userId);
+//        db.update(TABLE_NAME1, contentValues, "USERID = ? ", new String[]{userIdVal});
+//        return true;
     }
 
     @SuppressLint("Range")
@@ -282,6 +291,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return driver;
     }
 
+    @SuppressLint("Range")
+    public Ride getRideById(int rideId) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_NAME3 + " WHERE RIDEID = " + rideId + ";";
+
+        Cursor res = sqLiteDatabase.rawQuery(selectQuery, null);
+        if (res != null)
+            res.moveToFirst();
+
+        Ride ride = new Ride();
+
+        try {
+            ride.setRideId(res.getInt(res.getColumnIndex(RIDE_PK)));
+            ride.setDate(res.getString(res.getColumnIndex(RIDE_COL_1)));
+            ride.setDuration(res.getInt(res.getColumnIndex(RIDE_COL_2)));
+            ride.setCost(res.getDouble(res.getColumnIndex(RIDE_COL_3)));
+            ride.setPickup(res.getString(res.getColumnIndex(RIDE_COL_4)));
+            ride.setDestination(res.getString(res.getColumnIndex(RIDE_COL_5)));
+            ride.setUserId(res.getString(res.getColumnIndex(RIDE_FK1)));
+            ride.setDriverId(res.getString(res.getColumnIndex(RIDE_FK2)));
+        } catch(Exception ex) {
+            return new Ride();
+        }
+
+        return ride;
+    }
+
     public Cursor getAllRides(int userId) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME3
@@ -301,14 +338,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean assignDriverToRide(int driverId, int rideId) {
+        String strSQL = "UPDATE " + TABLE_NAME3 + " SET DRIVERID = " + driverId + " WHERE RIDEID = "+ rideId;
+
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(RIDE_FK2, driverId);
-
-        String rideIdVal = Integer.toString(rideId);
-        db.update(TABLE_NAME3, contentValues, "RIDEID = ? ", new String[]{rideIdVal});
+        db.execSQL(strSQL);
         return true;
+//        ContentValues contentValues = new ContentValues();
+//
+//        contentValues.put(RIDE_FK2, driverId);
+//
+//        String rideIdVal = Integer.toString(rideId);
+//        db.update(TABLE_NAME3, contentValues, "RIDEID = ? ", new String[]{rideIdVal});
+//        return true;
     }
 
     public boolean assignDateToRide(int rideId) {
@@ -353,6 +394,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME3
                 + " WHERE DRIVERID = 0;", null);
         return res;
+    }
+
+    public boolean updateRating(int driverId, int rating) {
+        String strSQL = "UPDATE " + TABLE_NAME2 + " SET RATING = " + rating + " WHERE DRIVERID = "+ driverId;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(strSQL);
+        return true;
+    }
+
+    public String getUserName(int userId) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String strSQL = "SELECT FIRSTNAME, LASTNAME FROM " + TABLE_NAME1 + " WHERE USERID = "+ userId;
+
+        Cursor res = sqLiteDatabase.rawQuery(strSQL, null);
+
+        String name = "";
+        while(res.moveToNext()) {
+            name = res.getString(0);
+            name += " " + res.getString(1);
+        }
+        return name;
     }
 
 

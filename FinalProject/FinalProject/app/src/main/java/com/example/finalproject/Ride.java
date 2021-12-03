@@ -3,6 +3,7 @@ package com.example.finalproject;
 import java.io.Serializable;
 
 public class Ride implements Serializable {
+    int rideId;
     String date;
     int duration;
     double cost;
@@ -10,6 +11,9 @@ public class Ride implements Serializable {
     String destination;
     String userId;
     String driverId;
+
+    public Ride() {
+    }
 
     public Ride(String date, int duration, double cost, String pickup, String destination,
                 String userId, String driverId) {
@@ -20,6 +24,14 @@ public class Ride implements Serializable {
         this.destination = destination;
         this.userId = userId;
         this.driverId = driverId;
+    }
+
+    public int getRideId() {
+        return rideId;
+    }
+
+    public void setRideId(int rideId) {
+        this.rideId = rideId;
     }
 
     public String getDate() {
@@ -70,8 +82,8 @@ public class Ride implements Serializable {
         this.userId = userId;
     }
 
-    public String getDriverId() {
-        return driverId;
+    public int getDriverId() {
+        return Integer.parseInt(driverId);
     }
 
     public void setDriverId(String driverId) {

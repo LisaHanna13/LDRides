@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:text="Email"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:textColor="#ff5c6c"
         android:textStyle="bold"/>
 
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:text="Password"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:textColor="#ff5c6c"
         android:textStyle="bold"/>
 
@@ -66,9 +66,30 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Keyword"
+        android:text="Confirm Password"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#ff5c6c"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/confirmPasswordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Re-enter password here..."
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="15dp"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Where were you born?"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="20dp"
         android:textColor="#ff5c6c"
         android:textStyle="bold"/>
 
@@ -125,7 +146,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:backgroundTint="#ff5c6c"
         android:textColor="@color/white"
         android:text="Continue"/>

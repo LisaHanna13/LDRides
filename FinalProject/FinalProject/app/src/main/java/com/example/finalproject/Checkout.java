@@ -3,15 +3,24 @@ package com.example.finalproject;
 import static java.sql.Types.NULL;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Checkout extends AppCompatActivity {
     TextView ck_startPoint, ck_destination, ck_duration, ck_subtotal, ck_tps, ck_tvq, ck_total;
@@ -68,6 +77,32 @@ public class Checkout extends AppCompatActivity {
         ck_tvq.setText(formatTvq);
         ck_total.setText(formatTotal);
 
+        expDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                if (charSequence.length() == 2) {
+                    if(start == 2 && before == 1 && !charSequence.toString().contains("/")){
+                        expDate.setText("" + charSequence.toString().charAt(0));
+                        expDate.setSelection(1);
+                    }
+                    else {
+                        expDate.setText(charSequence + "/");
+                        expDate.setSelection(3);
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         ck_confirmB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +112,7 @@ public class Checkout extends AppCompatActivity {
                     return;
                 }
 
-                if (cardNum.length() != 16) {
+                if (cardNum.length() != 16 || !validateIsNumber(cardNum.getText().toString())) {
                     Toast.makeText(getApplicationContext(), "Invalid Card Number",
                             Toast.LENGTH_SHORT).show();
                     return;
@@ -89,36 +124,31 @@ public class Checkout extends AppCompatActivity {
                     return;
                 }
 
-                if (securityCode.length() != 3) {
+                if (securityCode.length() != 3 || !validateIsNumber(securityCode.getText().toString())) {
                     Toast.makeText(getApplicationContext(), "Invalid Security Code",
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Intent checkoutIntent = new Intent(Checkout.this, Confirmation.class);
+                Toast.makeText(getApplicationContext(), "Your ride request has been sent successfully!", Toast.LENGTH_LONG).show();
+                Intent homeIntent = new Intent(Checkout.this, Home.class);
 
-                checkoutIntent.putExtra("user", user);
-//                checkoutIntent.putExtra("driver", driver);
-                checkoutIntent.putExtra("pickup", pickup);
-                checkoutIntent.putExtra("destination", destination);
-                checkoutIntent.putExtra("estimateTime", estimateTime);
-                checkoutIntent.putExtra("cost", cost);
+                homeIntent.putExtra("user", user);
 
+                startActivityForResult(homeIntent, 1);
 
-                boolean isRideCreated = databaseHelper.insertRide(null, estimateTime, cost, pickup, destination, user.getUserId(),NULL);
-                if (isRideCreated) {
-                    // if driver has not accepted ride
-                    if (!databaseHelper.isDriverSetByRideId(databaseHelper.getLastRideId() + 1)) {
-                        ProgressDialog progressDialog = new ProgressDialog(Checkout.this);
-                        progressDialog.setMessage("Please wait while a driver accepts your ride request .....");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
-                    }
-                    else {
-                        startActivityForResult(checkoutIntent, 1);
-                    }
-                }
+//                Intent checkoutIntent = new Intent(Checkout.this, Confirmation.class);
+//
+//                checkoutIntent.putExtra("user", user);
+////                checkoutIntent.putExtra("driver", driver);
+//                checkoutIntent.putExtra("pickup", pickup);
+//                checkoutIntent.putExtra("destination", destination);
+//                checkoutIntent.putExtra("estimateTime", estimateTime);
+//                checkoutIntent.putExtra("cost", cost);
 
+//
+                Date date = Calendar.getInstance().getTime();
+                boolean isRideCreated = databaseHelper.insertRide(String.valueOf(date), estimateTime, total, pickup, destination, user.getUserId(),NULL);
             }
         });
 
@@ -130,5 +160,14 @@ public class Checkout extends AppCompatActivity {
                 startActivityForResult(homeIntent, 1);
             }
         });
+    }
+
+    public boolean validateIsNumber(String number) {
+        for (int i = 0; i < number.length(); i++) {
+            if (Character.isAlphabetic(number.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

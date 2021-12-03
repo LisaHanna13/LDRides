@@ -53,11 +53,11 @@ public class HomeDriverRecyclerViewAdapter extends RecyclerView.Adapter<HomeDriv
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         currentRideId = rides[position];
         //holder.rideTV.setText(rides[position]);
-        holder.userTV.setText("User Name: " + users[position]);
-        holder.pickupTV.setText("Pickup Location: " + pickups[position]);
-        holder.destinationTV.setText("Destination Location: " + destinations[position]);
-        holder.durationTv.setText("Duration: " + String.valueOf(durations[position]));
-        holder.costTV.setText("Cost: " + String.format("%.2f", costs[position]) + "$");
+        holder.userTV.setText(users[position]);
+        holder.pickupTV.setText(pickups[position]);
+        holder.destinationTV.setText(destinations[position]);
+        holder.durationTv.setText(String.valueOf(durations[position]));
+        holder.costTV.setText(String.format("%.2f", costs[position]));
     }
 
     @Override
@@ -93,6 +93,7 @@ public class HomeDriverRecyclerViewAdapter extends RecyclerView.Adapter<HomeDriv
 
         // onClick Listener for view
         @Override
+        // will return current ride id
         public void onClick (View v){
             listenerRef.get().onPositionClicked(currentRideId);
         }

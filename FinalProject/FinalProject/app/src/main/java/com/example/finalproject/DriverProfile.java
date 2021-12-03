@@ -25,7 +25,7 @@ public class DriverProfile extends AppCompatActivity {
 
         Intent driverIntent = getIntent();
         user = (User) driverIntent.getSerializableExtra("user");
-        driver = new Driver(); // THIS NEEDS TO BE CHANGED!!!!!!!!!!!!!!!!!!!!!!!!! get driver from intent
+        driver = (Driver) driverIntent.getSerializableExtra("driver");
 
         driverName = findViewById(R.id.driverName);
         driverEmail = findViewById(R.id.driverEmail);
